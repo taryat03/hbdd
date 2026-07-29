@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Selamat Ulang Tahun!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ffe6ea;
+            font-family: 'Nunito', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .mobile-wrapper {
+            width: 100%;
+            max-width: 400px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Fredoka One', cursive;
+            color: #ff477e;
+            text-shadow: 2px 2px 0px #fff;
+            font-size: 26px;
+            margin: 0 0 10px 0;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-family: 'Fredoka One', cursive;
+            color: #ff477e;
+            font-size: 16px;
+            margin: 0 0 30px 0;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* --- Scene 0: Start Button --- */
+        .btn-start {
+            background-color: #ff477e;
+            color: white;
+            font-size: 20px;
+            font-family: 'Fredoka One', cursive;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 15px rgba(255, 71, 126, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 20px;
+        }
+        .btn-start:active {
+            transform: scale(0.95);
+        }
+
+        /* --- Scene 1: Cake & Candles --- */
+        .cake-container {
+            position: relative;
+            width: 200px;
+            height: 160px;
+            margin-top: 30px;
+        }
+
+        .cake-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0; /* Kunci posisi */
+            width: 200px;
+            height: 80px;
+            background-color: #f4d03f;
+            border-radius: 10px;
+            box-shadow: inset 0 -8px 0 rgba(0,0,0,0.1), 0 8px 0 #d35400;
+        }
+
+        .cake-frosting {
+            position: absolute;
+            bottom: 50px;
+            left: 0; /* Kunci posisi */
+            width: 200px;
+            height: 40px;
+            background-color: #fff;
+            border-radius: 15px 15px 0 0;
+        }
+        
+        .cake-frosting::after {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 0;
+            width: 200px;
+            height: 20px;
+            background-size: 40px 30px;
+            background-image: radial-gradient(circle at 20px 0px, transparent 20px, #fff 21px);
+        }
+
+        .candle-container {
+            position: absolute;
+            bottom: 85px;
+            left: 0;
+            display: flex;
+            width: 100%;
+            justify-content: space-evenly;
+            padding: 0 30px;
+            box-sizing: border-box;
+        }
+
+        .candle {
+            position: relative;
+            width: 15px;
+            height: 40px;
+            background: repeating-linear-gradient(45deg, #ff477e, #ff477e 8px, #fff 8px, #fff 16px);
+            border-radius: 4px;
+        }
+
+        .flame {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 24px;
+            background-color: #ff9900;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: 0 0 15px #ff9900;
+            cursor: pointer;
+            animation: flicker 0.5s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 0.9; transform: translateX(-50%) scale(1); }
+            100% { opacity: 1; transform: translateX(-50%) scale(1.1); box-shadow: 0 0 20px #ffcc00; }
+        }
+
+        /* --- Scene 2 & 3: Gift Box & Reward --- */
+        .gift-container {
+            position: relative;
+            margin-top: 50px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .gift-box {
+            position: relative;
+            width: 130px;
+            height: 130px;
+            background-color: #3498db;
+            cursor: pointer;
+            animation: bounce 2s infinite;
+            border-radius: 8px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+            z-index: 5;
+        }
+
+        /* PITA VERTIKAL */
+        .gift-box::before {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 100%;
+            background-color: #f1c40f;
+            left: 50%;
+            top: 0; /* Perbaikan agar menempel di atas */
+            transform: translateX(-50%);
+        }
+
+        /* PITA HORIZONTAL (Ini yang bergeser) */
+        .gift-box::after {
+            content: '';
+            position: absolute;
+            height: 25px;
+            width: 100%;
+            background-color: #f1c40f;
+            top: 50%;
+            left: 0; /* KUNCI POSISI: Perbaikan agar tidak lari ke kanan */
+            transform: translateY(-50%);
+        }
+
+        .gift-lid {
+            position: absolute;
+            top: -15px;
+            left: -5px;
+            width: 140px;
+            height: 35px;
+            background-color: #2980b9;
+            border-radius: 5px;
+            z-index: 6;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+        
+        .gift-lid::before {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 100%;
+            background-color: #f1c40f;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+        }
+
+        .ribbon {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 30px;
+            background-color: transparent;
+            border: 8px solid #f1c40f;
+            border-bottom: none;
+            border-radius: 20px 20px 0 0;
+            z-index: 7;
+            transition: opacity 0.3s;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .gift-open .gift-lid {
+            transform: translateY(-80px) rotate(15deg);
+            opacity: 0;
+        }
+        .gift-open .ribbon {
+            opacity: 0;
+        }
+        .gift-open {
+            animation: none;
+            cursor: default;
+        }
+
+        /* The Reward */
+        .reward-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            text-align: center;
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 4;
+            width: 200px;
+        }
+
+        .gift-open .reward-content {
+            transform: translate(-50%, -150px) scale(1);
+        }
+
+        .reward-emoji {
+            font-size: 60px;
+            margin-bottom: 5px;
+            animation: float 2s infinite ease-in-out;
+        }
+
+        .reward-text {
+            background: white;
+            padding: 10px 15px;
+            border-radius: 15px;
+            font-weight: bold;
+            color: #ff477e;
+            font-size: 14px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Confetti */
+        .confetti {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #f00;
+            top: -20px;
+            z-index: 100;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <audio id="hbd-audio" loop>
+        <source src="hbd.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="mobile-wrapper">
+        
+        <!-- Scene 0: Start -->
+        <div id="start-screen" class="screen">
+            <h1>Ada sesuatu buat kamu! 💌</h1>
+            <button class="btn-start" onclick="startSurprise()">Buka Sekarang</button>
+        </div>
+
+        <!-- Scene 1: Cake -->
+        <div id="cake-screen" class="screen hidden">
+            <h1>Selamat Ulang Tahun! 🎉</h1>
+            <h2>(Klik apinya untuk mematikan lilin!)</h2>
+            
+            <div class="cake-container">
+                <div class="cake-bottom"></div>
+                <div class="cake-frosting"></div>
+                
+                <div class="candle-container">
+                    <div class="candle"><div class="flame" onclick="blowCandle(this)"></div></div>
+                    <div class="candle"><div class="flame" onclick="blowCandle(this)"></div></div>
+                    <div class="candle"><div class="flame" onclick="blowCandle(this)"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scene 2 & 3: Gift -->
+        <div id="gift-screen" class="screen hidden">
+            <h1 id="gift-title">Yeay! Sekarang buka kadonya! 🎁</h1>
+            <h2 id="gift-subtitle">(Klik kotaknya ya)</h2>
+
+            <div class="gift-container">
+                <div class="gift-box" id="the-box" onclick="openGift()">
+                    <div class="ribbon"></div>
+                    <div class="gift-lid"></div>
+                    
+                    <div class="reward-content">
+                        <div class="reward-emoji">💸🐈</div>
+                        <div class="reward-text">Selamat Tambah Tua!<br>aku memberimu uang dan kucing, semoga suka ya💕<br>Ditunggu traktirannya!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let candlesBlown = 0;
+        const totalCandles = 3;
+
+        function startSurprise() {
+            const audio = document.getElementById('hbd-audio');
+            audio.volume = 0.5;
+            audio.play().catch(() => console.log("Audio diblokir browser, abaikan saja."));
+
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('cake-screen').classList.remove('hidden');
+        }
+
+        function blowCandle(flameElement) {
+            if(flameElement.style.display !== 'none') {
+                flameElement.style.display = 'none';
+                candlesBlown++;
+                
+                if(candlesBlown === totalCandles) {
+                    setTimeout(() => {
+                        document.getElementById('cake-screen').classList.add('hidden');
+                        document.getElementById('gift-screen').classList.remove('hidden');
+                    }, 1000); 
+                }
+            }
+        }
+
+        function openGift() {
+            const box = document.getElementById('the-box');
+            if(!box.classList.contains('gift-open')) {
+                box.classList.add('gift-open');
+                
+                document.getElementById('gift-title').innerText = "SURPRISE!! 🎉";
+                document.getElementById('gift-subtitle').innerText = "Semoga panjang umur dan sehat selalu!";
+                
+                createConfetti();
+            }
+        }
+
+        function createConfetti() {
+            const colors = ['#ff477e', '#3498db', '#f1c40f', '#2ecc71', '#9b59b6'];
+            const wrapper = document.querySelector('.mobile-wrapper');
+            
+            for(let i = 0; i < 60; i++) {
+                let confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
+                confetti.style.opacity = Math.random() + 0.5;
+                
+                if(Math.random() > 0.5) confetti.style.borderRadius = '50%';
+                
+                wrapper.appendChild(confetti);
+                
+                setTimeout(() => {
+                    confetti.remove();
+                }, 4000);
+            }
+        }
+    </script>
+</body>
+</html>
